@@ -1,0 +1,55 @@
+<div class="principal-container">
+  <div class="left-container">
+  <form [formGroup]="loginForm">
+    <div class="login-form-container">
+      
+
+      <div class="">
+        <div class="input-container">
+          <ion-item>
+            <ion-input type="email" formControlName="email" placeholder="Correo"></ion-input>
+          </ion-item>
+        </div>
+        <div class="input-container">
+          <ion-item>
+            <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+          </ion-item>
+        </div>
+        <div class=login-options>
+          <div class=remember-container>
+            <div class="checkbox-container"> 
+              <ion-checkbox checked="true"></ion-checkbox>
+            </div>  
+           
+            <div class=text-container>
+              <p class=text-options>Remember me</p>
+            </div>
+
+          </div>
+          <div class=forgot-container>
+            <p class="text-options forgot">Forgot password?</p>
+          </div>
+        </div>
+
+
+
+        <div class="login-button-container">
+          <button class="login-button" (click)="login()">Iniciar Sesión</button>
+        </div>
+        <!-- <div class="login-button-container">
+          <button class="login-button" (click)="test()">Iniciar Sesión</button>
+        </div>-->
+      </div>
+    </div>
+  </form>
+  </div>
+  <div class="right-container">
+    <div class=logo-background>
+      <img  src="https://wallpapercave.com/wp/wp5945566.jpg">
+    </div>
+    <div class="logo-container">
+      <img class="logo" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6fc3f6e0-50b3-4c54-91c3-b87f1dad1db0/d9gsb2v-c769589b-8804-4537-a4ad-23280a44e11a.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNmZjM2Y2ZTAtNTBiMy00YzU0LTkxYzMtYjg3ZjFkYWQxZGIwXC9kOWdzYjJ2LWM3Njk1ODliLTg4MDQtNDUzNy1hNGFkLTIzMjgwYTQ0ZTExYS5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.bZfwvlxjtRA5WY7SLiPzz6xfFgMfSXwQNdMELNrE6AM">
+    </div>
+  </div>
+</div>
+
