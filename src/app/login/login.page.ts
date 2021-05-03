@@ -51,8 +51,7 @@ export class LoginPage implements OnInit {
         console.log(d);
         this.loginService.setToken(d['accessToken']);
         this.loginService.getUser(this.loginForm.value).then(logService=>{
-          logService.subscribe(r=>{
-            console.log('yo soy r',r);
+          logService.subscribe(r=>{            
             for(var user of r){
               user.token = d['accessToken'];
               this.loginService.setUser(user);
@@ -64,6 +63,7 @@ export class LoginPage implements OnInit {
         })
       },err=>{
         this.errorAlert();
+        this.router.navigate(['entidad'], {replaceUrl: true});
       })
     })
   }
