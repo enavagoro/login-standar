@@ -1,0 +1,344 @@
+/* Barra */
+
+ion-content{
+  --background: #EBEBEF;
+}
+
+ion-toolbar{
+  --background: white !important;
+  color: #0e1538;
+  text-align: center;
+}
+
+/* option container */
+
+.option-container{
+  display: flex;
+}
+
+.item-option{
+  margin-top: 2.5%;
+  width: 45%;
+  margin-left: 2.5%;
+  --background: transparent;
+}
+
+/* filter */
+
+.img-filter{
+  --border-radius: 0px;
+}
+
+.search-icon{
+  margin-top: 8px;
+  width: 25px;
+  height: 25px;
+}
+
+.item-filter{
+  margin-top: 2.5%;
+  width: 87.5%;
+  margin-left: 2.5%;
+  border-radius: 0px;
+  --background: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #0e1538;
+}
+
+/* botón excel */
+
+.download-buttons-container{
+  width: 10%;
+  margin-top: 2.5%;
+}
+
+.circle-buttons-container{
+  width: 100%;
+}
+
+.circle-button{
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 200px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.circle-button:hover{
+  transition: .5s;
+  transform: scale(1.2);
+}
+
+.circle-image{
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+
+/* cards */
+
+.cards-container{
+  width: 100%;
+  margin-top: 2.5%;
+  margin-left: 0%;
+}
+
+.card{
+  width: 250px;
+  margin-bottom: 40px;
+  margin-left: 20px;
+  min-height: 300px;
+  background-color: #fafafa;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 5px;
+  border: solid 1px #f4f4f4;
+  cursor: pointer;
+  transition: ease-out .5s;
+  transform-style: preserve-3d;
+  transition: .5s;
+}
+
+.card:hover{
+  transition: .5s;
+  transform: scale(1.05);
+}
+
+.card-content-container{
+
+}
+
+.card-image-container{
+  width: 90%;
+  padding-top: 20%;
+  margin-left: 5%;
+}
+
+.card-image{
+  width: 50px;
+  margin-left: calc((100% - 50px)/2);
+}
+
+.card-title-container{
+  width: 80%;
+  margin-left: 10%;
+  min-height: 50px;
+}
+
+.card-title{
+  font-size: 18px;
+  color: #0e1538;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+}
+
+.card-tag-container{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.card-description-container{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.card-description{
+  font-size: 12px;
+  color: #8795a0;
+  font-family: Poppins,sans-serif;
+  font-weight: 600;
+}
+
+.card-footer-container{
+  padding-bottom: 10%;
+}
+
+.item-card{
+  --background: transparent !important;
+}
+
+.icon-card-footer{
+  color: #8795a0;
+}
+
+.card-footer-text{
+  font-family: Poppins,sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: #8795a0;
+}
+
+/* agregar una nueva card*/
+
+.card-add-image-container{
+  margin-top: 20%;
+}
+
+.card-add-title-container{
+  width: 80%;
+  margin-left: 10%;
+}
+
+.card-add-title{
+  font-size: 18px;
+  color: #0e1538;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* back card */
+
+.card-content-container, .card-content-container-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card-content-container-back{
+  background: red;
+  transform: rotateY(180deg);
+}
+
+/* */
+
+ion-avatar{
+  --border-radius: 200px;  
+}
+
+/* animations */
+
+.flip{
+  //animation: flip .5s ease-in;
+  transform: rotateY(180deg);
+  transition: ease-out .5s;
+}
+
+.backflip{
+  //animation: backflip .5s ease-in;
+}
+
+/*
+
+@keyframes flip{
+  from{
+    transform: rotateY(0deg);
+  }
+  to{
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes backflip{
+  from{
+    transform: rotateY(-180deg);
+  }
+  to{
+    transform: rotateY(0deg);
+  }
+}
+*/
+
+.grayscale { filter: grayscale(80%) !important; }
+
+/* fab button*/
+
+.fab-button{
+  --background: #7898ff;
+  --background-hover: #7898ff;
+  --background-focused: #7898ff;
+  --background-activated: #7898ff;
+}
+
+@media (max-width: 900px){
+
+  .download-buttons-container{
+    width: 10%;
+    margin-top: 5%;
+  }
+
+  .item-filter{
+    margin-top: 5%;
+    width: 80%;
+    margin-left: 5%;
+  }
+
+  .cards-container{
+    width: 100%;
+    margin-left: 0%;
+  }
+
+  .card{
+    width: 270px;
+    margin-top: 2.5%;
+    margin-left: 30px;
+    display: inline-block;
+  }
+
+  .item-option{
+    margin-top: 4%;
+    width: 95%;
+    margin-left: 2.5%;
+    --background: transparent;
+  }
+}
+
+@media (max-width: 600px){
+  .desktop{
+    display: none;
+  }
+
+  .download-buttons-container{
+    width: 10%;
+    margin-top: 10%;
+  }
+
+  .item-filter{
+    margin-top: 10%;
+    width: 70%;
+    margin-left: 5%;
+  }
+
+  .item-option{
+    margin-top: 10%;
+    width: 100%;
+    margin-left: 0%;
+    font-size: 10px;
+    --background: transparent;
+  }
+
+  .cards-container{
+    width: 100%;
+    margin-left: 0%;
+  }
+
+  .card{
+    width: 95%;
+    margin-top: 2.5%;
+    margin-left: 2.5%;
+  }
+  
+  .card{
+    width: 90%;
+    margin-bottom: 40px;
+    min-height: 300px;
+    background-color: #fafafa;
+    vertical-align: top;
+    border-radius: 5px;
+    border: solid 1px #f4f4f4;
+    cursor: pointer;
+    transition: ease-out .5s;
+    transform-style: preserve-3d;
+    margin-right: 0%;
+    margin-left: 5%;
+    transition: .5s;
+  }
+}

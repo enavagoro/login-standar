@@ -57,7 +57,7 @@ export class LoginPage implements OnInit {
               user.token = d['accessToken'];
               this.loginService.setUser(user);
               this.loginService.setEnterprise(user.enterpriseId);
-              //this.router.navigate(['example'], {replaceUrl: true});
+              this.router.navigate(['cliente'], {replaceUrl: true});
               // aqui navega donde deberia navegar
             }
           })

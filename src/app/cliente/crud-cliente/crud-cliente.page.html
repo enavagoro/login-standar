@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="crudValue==1">Crear Cliente</ion-title>
+    <ion-title *ngIf="crudValue==2">Editar Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header>
+    Datos del Cliente
+  </ion-list-header>
+
+  <form>
+    <ion-item>
+      <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/1602/1602619.svg">
+      </ion-avatar>
+      <ion-label position="stacked">Test<ion-text color="danger">*</ion-text></ion-label>
+      <ion-input  [(ngModel)]="cliente.test" name="test" required></ion-input>
+    </ion-item>
+  </form>
+
+
+    <ion-button class="ion-button" *ngIf="crudValue==1" size="medium" (click)="confirmCreate()" >Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="crudValue==2" size="medium" (click)="confirmUpdate()" >Actualizar</ion-button>

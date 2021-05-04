@@ -17,6 +17,7 @@ export class LoginService {
   constructor(private router:Router,private dataStorage : DataStorageService ,private http:HttpClient) {
     var val = this.dataStorage.get('user');
     
+    /*
     if(val){
       this.setEnterprise(val['enterprise']);
       this.setToken(val['token']);
@@ -24,6 +25,7 @@ export class LoginService {
     else{
       this.router.navigate(['/login'], {replaceUrl: true});
     }
+    */
   }
   
   public getUrl(){
