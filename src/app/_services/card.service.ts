@@ -6,7 +6,7 @@ import { LoginService } from './login.service';
   providedIn: 'root'
 })
 export class CardService {  
-  private url: string = "http://localhost:8080";  
+  private url: string = "http://localhost:8081";  
   constructor(private http:HttpClient,private login:LoginService) {    
   }
   async list() {    

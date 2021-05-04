@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
         })
       },err=>{
         this.errorAlert();
-        this.router.navigate(['entidad'], {replaceUrl: true});
+        this.router.navigate(['cliente'], {replaceUrl: true});
       })
     })
   }
