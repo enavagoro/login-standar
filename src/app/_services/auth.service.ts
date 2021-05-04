@@ -13,7 +13,7 @@ interface auth {
 
 export class AuthService {
 
-  private url: string = "http://localhost:8080";
+  private url: string = "http://localhost:8081";
 
   constructor(private http: HttpClient, private login : LoginService) { }
 

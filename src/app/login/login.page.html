@@ -1,17 +1,17 @@
 <div class="principal-container">
   <div class="left-container">
   <form [formGroup]="loginForm">
-    <div class="login-form-container">
-      
-
+    <div class="login-form-container">      
       <div class="">
         <div class="input-container">
-          <ion-item>
+          <control-messages [control]="loginForm.get('email')"> </control-messages>
+          <ion-item>            
             <ion-input type="email" formControlName="email" placeholder="Correo"></ion-input>
           </ion-item>
         </div>
         <div class="input-container">
-          <ion-item>
+          <control-messages [control]="loginForm.get('password')"> </control-messages>
+          <ion-item>            
             <ion-input type="password" formControlName="password" placeholder="Contraseña"></ion-input>
           </ion-item>
         </div>
@@ -34,7 +34,7 @@
 
 
         <div class="login-button-container">
-          <button class="login-button" (click)="login()">Iniciar Sesión</button>
+          <button class="login-button" (click)="login()" [disabled]="!loginForm.valid">Iniciar Sesión</button>
         </div>
         <!-- <div class="login-button-container">
           <button class="login-button" (click)="test()">Iniciar Sesión</button>

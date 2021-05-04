@@ -14,14 +14,16 @@ import { AuthService } from './_services/auth.service';
 import { LoginService } from './_services/login.service';
 import { ValidationService } from './_services/validation.service';
 import { DataStorageService } from './_services/dataStorage.service';
+import { ExcelService } from './_services/excel.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule ,HttpClientModule],
+  imports: [BrowserModule,ReactiveFormsModule, IonicModule.forRoot(), AppRoutingModule ,HttpClientModule],
   providers: [
     AuthService,
     LoginService,
+    ExcelService,
     DataStorageService,
     ValidationService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
