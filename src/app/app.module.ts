@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; //Protocolo http para que los servicios se comuniquen con la api
-import {ReactiveFormsModule,FormsModule} from '@angular/forms'; //esto es para los formularios
+import { ReactiveFormsModule,FormsModule } from '@angular/forms'; //esto es para los formularios
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
