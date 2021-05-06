@@ -6,7 +6,6 @@ import { ExcelService } from '../_services/excel.service';
 import { Router } from '@angular/router';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { CrudClientePage } from './crud-cliente/crud-cliente.page';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-cliente',
