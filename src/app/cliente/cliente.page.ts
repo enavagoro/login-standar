@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../_services/cliente.service';
 import { DataStorageService } from '../_services/dataStorage.service';
+import { ExcelService } from '../_services/excel.service';
 //import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { ModalController ,ToastController, AlertController,ActionSheetController} from '@ionic/angular';
 import { CrudClientePage } from './crud-cliente/crud-cliente.page';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-cliente',
@@ -20,23 +22,36 @@ import { CrudClientePage } from './crud-cliente/crud-cliente.page';
     filteredClientes = [];
     variable = false;
     titleMaxValue = 34;
+    seeSubOptions = false;
 
-    constructor(private router:Router, private dataStorage: DataStorageService, private modalCtrl : ModalController, private alertController : AlertController, private actionSheetController:ActionSheetController, private clienteService:ClienteService) { }
+    currentPage = 1;
+    firstPage = 0;
+    lastPage = 0;
+    pages = [];
+    productsPerPage = 10;
+
+    from = (this.currentPage - 1) * this.productsPerPage;
+    to = this.currentPage * this.productsPerPage;  
+
+    constructor(private router:Router, private dataStorage: DataStorageService, private modalCtrl : ModalController, private alertController : AlertController, private actionSheetController:ActionSheetController, private clienteService:ClienteService, private excelService:ExcelService) { }
   
-    ngOnInit() {  
+    ngOnInit() {
       var val = this.dataStorage.get('user');
-      if(val){
+
+      if(val){          
         this.clienteService.list().then(servicio=>{
           servicio.subscribe(data=>{
             console.log('estos son los datos que llegan',data);
             this.clientes =  data;
             this.filteredClientes = data;
+            this.startPaginator();
           })
         })
       }
       else{
         this.router.navigate(['/login'], {replaceUrl: true});
       }
+
     }
   
     filterClientes(){
@@ -76,6 +91,8 @@ import { CrudClientePage } from './crud-cliente/crud-cliente.page';
       if(this.searchQuery.trim() == ''){
         this.filteredClientes = this.clientes;          
       }
+
+      this.startPaginator();
     }
 
     maxSizeString(text,size){
@@ -186,8 +203,23 @@ import { CrudClientePage } from './crud-cliente/crud-cliente.page';
       await alert.present();
     }
 
-    changeStatus(status){
+    exportExcel(){
+      var toExport = [];
+      for(var client of this.filteredClientes){
+        //var item = {Nombre : cliente.nombre,Rut:cliente.rut,URL:cliente.url,Panel:cliente.panel,Email:cliente.email,Ecommerce:cliente.tipo_ecommerce,Suite:cliente.tipo_suite ,"Razon Social":cliente.razon_social,"Etapa cliente":cliente.etapa_cliente};
+        var item = client;
+        toExport.push(item);      
+      }
+      this.excelService.exportAsExcelFile(toExport, 'Resumen cliente ');
+    }
+
+    changeListStatus(status){
       this.seeAll = status;
+      this.startPaginator();
+    }
+
+    changeSeeSubOptionsStatus(){
+      this.seeSubOptions = !this.seeSubOptions;
     }
   
     deleteAndRecovery(option,cliente){
@@ -195,6 +227,141 @@ import { CrudClientePage } from './crud-cliente/crud-cliente.page';
       this.clienteService.update(cliente['_id'],cliente).subscribe(cliente=>{
         //console.log(cliente);
         //this.ngOnInit();
+        this.startPaginator()
       })
+    }
+
+    async generalSettings() {
+      var option = '';
+      var seeAllStatus = !this.seeAll;
+      if(this.seeAll){
+        option = 'activos'
+      }else{
+        option = 'desactivados'
+      }
+
+      const actionSheet = await this.actionSheetController.create({
+        header: 'Opciones',
+        buttons: [
+          {
+            text: 'Mostrar clientes '+option,
+            icon: 'list',
+            handler: () => {
+              this.changeListStatus(seeAllStatus)
+            }
+          },        
+          {
+          text: 'Crear un nuevo cliente',
+          icon: 'person-add',
+          handler: () => {
+            this.addCliente(1);
+          }
+        },
+        {
+          text: 'Descargar Excel',
+          icon: 'document',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        }]
+      });
+      await actionSheet.present();
+    }
+
+    startPaginator(){
+      console.log('aqui estamos');
+      if(!this.seeAll){
+        this.currentPage = 1;
+        var total = this.filterClientes().length;
+        var firstPage = 1;
+        this.firstPage = firstPage;
+        var limit = 10;
+        var lastPage = Math.ceil(total / limit);
+        this.lastPage = lastPage;
+        this.pages = Array.from({length: lastPage}, (item, index) => index + 1);
+        this.pages.shift();
+        this.pages.pop();
+        console.log('pages',this.pages);
+        console.log('primera',firstPage,'ultima',lastPage);
+        this.updateFilterRange()
+      }else{
+        console.log('entré');
+        this.currentPage = 1;
+        var total = this.filterDesactivated().length;
+        var firstPage = 1;
+        this.firstPage = firstPage;
+        var limit = 10;
+        var lastPage = Math.ceil(total / limit);
+        this.lastPage = lastPage;
+        this.pages = Array.from({length: lastPage}, (item, index) => index + 1);
+        this.pages.shift();
+        this.pages.pop();
+        this.updateFilterRange()
+        console.log('pages',this.pages);
+        console.log('pages',this.pages);
+        console.log('primera',firstPage,'ultima',lastPage);
+      }
+      
+    }
+
+    filterPages(){
+      var tempArray = [];
+
+      /*console.log('currentPage',this.currentPage);*/
+      var actualValue = this.currentPage - 2;
+      
+      if(this.currentPage == this.firstPage){
+          tempArray = this.pages.slice(0,2);
+  
+          return tempArray
+      }
+      else if(this.currentPage == this.lastPage) {
+          tempArray = this.pages.slice(this.pages.length - 2 ,this.pages.length);
+  
+          return tempArray
+      }
+      else{
+          if(this.pages[actualValue - 1]){
+              tempArray.push(this.pages[actualValue - 1])
+          }
+          tempArray.push(this.pages[actualValue]);        
+          if(this.pages[actualValue + 1]){
+              tempArray.push(this.pages[actualValue + 1])
+          }
+  
+          return tempArray
+      }
+    }
+  
+    previousPage(){
+      this.currentPage = this.currentPage - 1;
+      this.updateFilterRange();
+      //console.log('productosFiltrados',this.filteredProducts)
+    }
+  
+    selectPage(page){
+      this.currentPage = page;
+      this.updateFilterRange();
+      //console.log('productosFiltrados',this.filteredProducts);
+    };
+  
+    nextPage(){
+      this.currentPage = this.currentPage + 1;
+      this.updateFilterRange();
+      //console.log('productosFiltrados',this.filteredProducts)
+    }
+
+    updateFilterRange(){
+      this.from = (this.currentPage - 1) * this.productsPerPage;
+      this.to = this.currentPage * this.productsPerPage;
+      console.log('from',this.from,'to',this.to)
     }
   }

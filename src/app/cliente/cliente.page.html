@@ -8,136 +8,280 @@
 
 <ion-content mode="md">
   <div class="option-container">
-    <ion-item class="item-filter" lines="none">
-      <ion-avatar class="img-filter" slot="start">
-        <img class="search-icon" src="./assets/img/lupe.svg">
-      </ion-avatar>
-      <ion-input placeholder="Buscar Clientes" (keyup)="filter($event)" [(ngModel)]="searchQuery"></ion-input>
-    </ion-item>
-    <div class="download-buttons-container">
-      <div class="circle-buttons-container">
-        <div class="circle-button">
-          <img class="circle-image" src="./assets/img/excel.svg">
-        </div>
+    <div class="filter-options-container">
+      <div class="search-container">
+        <ion-item class="item-filter" lines="none">
+          <ion-avatar class="img-filter" slot="start">
+            <img class="search-icon" src="./assets/img/lupe.svg">
+          </ion-avatar>
+          <ion-input placeholder="Buscar Clientes" (keyup)="filter($event)" [(ngModel)]="searchQuery"></ion-input>
+        </ion-item>
+      </div>
+      <div class="config-container cellphone">
+        <ion-buttons (click)="generalSettings()">
+          <ion-button>
+            <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div class="toggle-container desktop">
+        <ion-item lines="none">
+          <ion-toggle (click)="changeListStatus(!seeAll)" selected></ion-toggle>
+          <ion-label *ngIf="!seeAll">Clientes Activos</ion-label>
+          <ion-label *ngIf="seeAll">Clientes Desactivados</ion-label>
+        </ion-item>
+      </div>
+      <div class="options-container desktop">
+        <ion-buttons *ngIf="seeSubOptions" (click)="changeSeeSubOptionsStatus();">
+          <ion-button>
+            <ion-icon slot="icon-only" name="caret-down-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons *ngIf="!seeSubOptions" (click)="changeSeeSubOptionsStatus();">
+          <ion-button>
+            <ion-icon slot="icon-only" name="caret-up-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </div>
     </div>
-  </div>
+    <div class="sub-options-container desktop" *ngIf="!seeSubOptions">
+      <div class="buttons-option-container">
+        <div class="new-element-container">
+          <ion-item (click)="addCliente(1)">
+            <ion-avatar class="item-avatar">
+              <img src="./assets/icon/contact_page.svg">
+            </ion-avatar> 
+            <ion-label>Crear un cliente</ion-label>
+          </ion-item>
+        </div>
 
-  <ion-item class="item-option" lines="none">
-    <ion-segment value="activated" mode="md" slot="start" style="color: #0e1538;">
-      <ion-segment-button value="activated" style="color: #0e1538; text-align: left;" (click)="changeStatus(false)">
-        <ion-label style="color: #0e1538;">Activos</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="desactivated" style="color: #0e1538; text-align: left;" (click)="changeStatus(true)">
-        <ion-label>Desactivados</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-item>
-
-  <div class="cards-container" *ngIf="!seeAll">
-    <div class="card desktop" (click)="addCliente(1)">
-      <div class="card-content-container">
-        <div class="card-add-image-container">
-          <img class="card-image" src="./assets/img/add.svg">
-        </div>
-        <div class="card-header-container">
-          <div class="card-add-title-container">
-            <p class="card-add-title">Agregar un nuevo Cliente</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" *ngFor="let c of filterClientes()" (click)="options(c)" >
-      <div class="card-content-container" *ngIf="!variable">
-        <div class="card-header-container">
-          <div class="card-title-container">
-            <!--<p class="card-title">Increase confidence with TruePilot reviews</p>-->
-            <p class="card-title" *ngIf="maxSizeString(c.test,titleMaxValue).length < titleMaxValue">{{c.test}}</p>
-            <p class="card-title" *ngIf="maxSizeString(c.test,titleMaxValue).length >= titleMaxValue">{{maxSizeString(c.test,titleMaxValue)}}...</p>
-          </div>
-        <!--
-          <div class="card-image-container">
-            <img class="card-image">
-          </div>
-        -->
-        </div>
-        <div class="card-tag-container">
-          <ion-chip outline color="primary">
-            <ion-label>Primary</ion-label>
-          </ion-chip>
-        </div>
-        <div class="card-description-container">
-          <p class="card-description">Some kind of short description can go here to better explain the recommended task</p>
-        </div>
-        <div class="card-footer-container">
-          <ion-item class="item-card" lines="none">
-            <ion-buttons>
-              <ion-button slot="start">
-                <ion-icon class="icon-card-footer" slot="icon-only" name="calendar-clear-outline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-            <ion-label class="card-footer-text">21 del 21</ion-label>
-            <ion-avatar slot="end">
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fukmadcat.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fsleepy-cat.jpg&f=1&nofb=1">
-            </ion-avatar>
+        <div class="download-excel-container">
+          <ion-item>
+            <ion-avatar class="item-avatar">
+              <img src="https://www.flaticon.com/svg/vstatic/svg/732/732220.svg?token=exp=1620237646~hmac=ca88348a5ac9a43982bd88928048fa4d">
+            </ion-avatar> 
+            <ion-label>Descargar excel</ion-label>
           </ion-item>
         </div>
       </div>
-    <!--
-      <div class="card-content-container-back">
-        <h1>wena conchetu</h1>
-      </div>
-    -->
+
     </div>
   </div>
 
-  <div class="cards-container" *ngIf="seeAll">
-    <div class="card grayscale" *ngFor="let c of filterDesactivated()" (click)="options(c)">
-      <div class="card-content-container" *ngIf="!variable">
-        <div class="card-header-container">
-          <div class="card-title-container">
-            <!--<p class="card-title">Increase confidence with TruePilot reviews</p>-->
-            <p class="card-title" *ngIf="maxSizeString(c.test,titleMaxValue).length < titleMaxValue">{{c.test}}</p>
-            <p class="card-title" *ngIf="maxSizeString(c.test,titleMaxValue).length >= titleMaxValue">{{maxSizeString(c.test,titleMaxValue)}}...</p>
-          </div>
-        <!--
-          <div class="card-image-container">
-            <img class="card-image">
-          </div>
-        -->
+  <div class="list-item-container" *ngIf="!seeAll" >
+    <p class="title-list">
+      Lista de clientes ({{filterClientes().length}})
+    </p>
+
+    <div class="list-item" *ngFor="let c of filterClientes().slice(from,to)" (click)="options(c)"><!-- *ngFor="let c of filterClientes()"  -->
+      <div class="icon-item-container">
+        <div class="icon-item">
+          <img class="icon" src="./assets/icon/contact_page.svg">
         </div>
-        <div class="card-tag-container">
-          <ion-chip outline color="primary">
-            <ion-label>Primary</ion-label>
+        <div class="tag-container cellphone">
+          <ion-chip color="primary">
+            <ion-label>B2C</ion-label>
           </ion-chip>
         </div>
-        <div class="card-description-container">
-          <p class="card-description">Some kind of short description can go here to better explain the recommended task</p>
+      </div>
+      <div class="title-item-container">
+        <div class="title-container">
+          <p class="title-item">{{c.test}}</p>
         </div>
-        <div class="card-footer-container">
-          <ion-item class="item-card" lines="none">
-            <ion-buttons>
-              <ion-button slot="start">
-                <ion-icon class="icon-card-footer" slot="icon-only" name="calendar-clear-outline"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-            <ion-label class="card-footer-text">21 del 21</ion-label>
-            <ion-avatar slot="end">
-              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fukmadcat.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fsleepy-cat.jpg&f=1&nofb=1">
-            </ion-avatar>
-          </ion-item>
+        <div class="tag-container desktop">
+          <ion-chip color="primary">
+            <ion-label>B2C</ion-label>
+          </ion-chip>
+        </div>
+        <div class="info-item-container cellphone">
+          <div class="info-description-container">
+            <p class="info-description">19390374-6</p>
+          </div>
+        </div>
+        <div class="seconday-info-item-container cellphone">
+          <div class="secondary-info-description-container">
+            <p class="secondary-info-description">molledafreddy@gmail.com</p>
+          </div>
+          <div class="secondary-info-description-container">
+            <p class="secondary-info-description">938904587</p>
+          </div>
         </div>
       </div>
-      <div class="card-content-container-back">
-        <h1>wena conchetu</h1>
+      <div class="info-item-container desktop">
+        <div class="info-description-container">
+          <p class="info-description">19390374-6</p>
+        </div>
+      </div>
+      <div class="seconday-info-item-container desktop">
+        <div class="secondary-info-description-container">
+          <p class="secondary-info-description">molledafreddy@gmail.com</p>
+        </div>
+        <div class="secondary-info-description-container">
+          <p class="secondary-info-description">938904587</p>
+        </div>
+      </div>
+      <div class="date-item-container desktop">
+        <div class="date-item">
+          <p class="date-info">2020-12-22 13:06:03</p>
+        </div>
+        <div class="date-item">
+          <p class="date-info">2020-12-22 13:06:03</p>
+        </div>
+      </div>
+      <div class="action-item-container">
+        <ion-buttons class="button-container">
+          <ion-button>
+            <ion-icon class="desktop" slot="icon-only" name="ellipsis-horizontal"></ion-icon>    
+            <ion-icon class="cellphone" slot="icon-only" name="ellipsis-vertical"></ion-icon>    
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <div class="result-container" *ngIf="filterClientes().length == 0">
+      <div class="result-image-container">
+        <img class="result-image grayscale" src="https://www.flaticon.com/svg/vstatic/svg/4371/4371245.svg?token=exp=1620262807~hmac=d546a8e2054780335936acd3f983fbfe">
+      </div>
+      <div class="result-text-container">
+        <p class="result-text">No se han encontrado resultados</p>
       </div>
     </div>
   </div>
+
+  <div class="list-item-container" *ngIf="seeAll" >
+    <p class="title-list">
+      Lista de clientes desactivados ({{filterDesactivated().length}})
+    </p>
+    <div class="list-item grayscale" *ngFor="let c of filterDesactivated().slice(from,to)" (click)="options(c)"><!-- *ngFor="let c of filterClientes()"  -->
+      <div class="icon-item-container">
+        <div class="icon-item">
+          <img class="icon" src="./assets/icon/contact_page_desactivated.svg">
+        </div>
+        <div class="tag-container cellphone">
+          <ion-chip color="primary">
+            <ion-label>B2C</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+      <div class="title-item-container">
+        <div class="title-container">
+          <p class="title-item">{{c.test}}</p>
+        </div>
+        <div class="tag-container desktop">
+          <ion-chip color="primary">
+            <ion-label>B2C</ion-label>
+          </ion-chip>
+        </div>
+        <div class="info-item-container cellphone">
+          <div class="info-description-container">
+            <p class="info-description">19390374-6</p>
+          </div>
+        </div>
+        <div class="seconday-info-item-container cellphone">
+          <div class="secondary-info-description-container">
+            <p class="secondary-info-description">molledafreddy@gmail.com</p>
+          </div>
+          <div class="secondary-info-description-container">
+            <p class="secondary-info-description">938904587</p>
+          </div>
+        </div>
+      </div>
+      <div class="info-item-container desktop">
+        <div class="info-description-container">
+          <p class="info-description">19390374-6</p>
+        </div>
+      </div>
+      <div class="seconday-info-item-container desktop">
+        <div class="secondary-info-description-container">
+          <p class="secondary-info-description">molledafreddy@gmail.com</p>
+        </div>
+        <div class="secondary-info-description-container">
+          <p class="secondary-info-description">938904587</p>
+        </div>
+      </div>
+      <div class="date-item-container desktop">
+        <div class="date-item">
+          <p class="date-info">2020-12-22 13:06:03</p>
+        </div>
+        <div class="date-item">
+          <p class="date-info">2020-12-22 13:06:03</p>
+        </div>
+      </div>
+      <div class="action-item-container">
+        <ion-buttons class="button-container">
+          <ion-button>
+            <ion-icon class="desktop" slot="icon-only" name="ellipsis-horizontal"></ion-icon>    
+            <ion-icon class="cellphone" slot="icon-only" name="ellipsis-vertical"></ion-icon>    
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </div>
+
+    <div class="result-container" *ngIf="filterDesactivated().length == 0">
+      <div class="result-image-container">
+        <img class="result-image grayscale" src="https://www.flaticon.com/svg/vstatic/svg/4371/4371245.svg?token=exp=1620262807~hmac=d546a8e2054780335936acd3f983fbfe">
+      </div>
+      <div class="result-text-container">
+        <p class="result-text">No se han encontrado resultados</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="paginator-container" *ngIf=" firstPage < lastPage">
+    <div class="paginator-sides-container">
+      <div class="left-part desktop" *ngIf="currentPage > firstPage" (click)="previousPage()">
+        <p>Anterior</p>
+      </div>
+      <div class="center-part">
+          <div class="square-container">
+                <div class="square" *ngIf="firstPage!=currentPage" (click)="selectPage(firstPage)">
+                    <h1 class="square-number">{{firstPage}}</h1>
+                </div>
+                <div class="square-selected" *ngIf="firstPage==currentPage">
+                    <h1 class="square-number">{{firstPage}}</h1>
+                </div>
+          </div>
+          <div class="square-container" *ngFor="let page of filterPages(); index as i">
+                <div class="square" *ngIf="page!=currentPage" (click)="selectPage(page)" >
+                    <h1 class="square-number">{{page}}</h1>
+                </div>
+                <div class="square-selected" *ngIf="page==currentPage" (click)="selectPage(page)">
+                    <h1 class="square-number">{{page}}</h1>
+                </div>
+          </div>
+          <div class="square-container">            
+                <div class="square" (click)="selectPage(lastPage)" *ngIf="lastPage!=currentPage">
+                    <h1 class="square-number">{{lastPage}}</h1>
+                </div>
+                <div class="square-selected" (click)="selectPage(lastPage)" *ngIf="lastPage==currentPage">
+                    <h1 class="square-number">{{lastPage}}</h1>
+                </div>
+          </div>
+      </div>
+      <div class="right-part desktop" *ngIf="currentPage < lastPage" (click)="nextPage()">
+        <p>Siguiente</p>
+      </div>
+      <div class="links-phone cellphone">
+          <div class="left-part" *ngIf="currentPage > firstPage" (click)="previousPage()">
+              <p class="text-paginator-previous">Anterior</p>
+          </div>
+          <div class="right-part" *ngIf="currentPage < lastPage" (click)="nextPage()">
+            <p class="text-paginator-last">Siguiente</p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blank-space">
+
+  </div>
+
+  
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!seeAll">
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button class="fab-button" (click)="addCliente(1)">
-    <ion-icon name="add"></ion-icon>
+    <ion-icon name="person-add"></ion-icon>
   </ion-fab-button>
 </ion-fab>

@@ -1,7 +1,7 @@
 /* Barra */
 
 ion-toolbar{
-  --background: #7898ff !important;
+  --background: #333333 !important;
   color: white;
   text-align: center;
 }
@@ -9,15 +9,16 @@ ion-toolbar{
 ion-title{
   --color: white;
   font-family: 'Roboto', sans-serif;
-  text-align: center;
-  font-size: 24px;
+  text-align: left;
+  font-size: 17px;
+  margin-left: 10px;
 }
 
 .ion-button{
-  --background: #7e7cc1;
-  --background-activated: #7e7cc1;
-  --background-focused: #7e7cc1;
-  --background-hover: #7e7cc1;
+  --background: #333333;
+  --background-activated: #333333;
+  --background-focused: #333333;
+  --background-hover: #333333;
   width: 70% !important;
   margin-left: 15% !important;
   margin-top: 5%;
